@@ -9,11 +9,11 @@ import (
 func main() {
 	r := chi.NewRouter()
 
-	r.Get("/", SlashRoute)
+	r.Get("/", root)
 
 	http.ListenAndServe(":4321", r)
 }
 
-func SlashRoute(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("welcome"))
+func root(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Hello, World!"))
 }
