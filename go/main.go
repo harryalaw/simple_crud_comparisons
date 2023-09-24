@@ -21,9 +21,9 @@ func root(w http.ResponseWriter, r *http.Request) {
 }
 
 type Data struct {
-	Id      int32
-	Message string
-	Array   []string
+	Id      int32    `json:"id"`
+	Message string   `json:"message"`
+	Array   []string `json:"array"`
 }
 
 func getJson(w http.ResponseWriter, r *http.Request) {
