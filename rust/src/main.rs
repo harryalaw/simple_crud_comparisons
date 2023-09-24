@@ -5,7 +5,7 @@
 //! ```
 
 use axum::{
-    routing::{get},
+    routing::get,
     Router,
 };
 use std::net::SocketAddr;
