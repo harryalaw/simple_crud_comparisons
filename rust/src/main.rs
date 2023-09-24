@@ -4,21 +4,16 @@
 //! cargo run -p example-hello-world
 //! ```
 
-use axum::{
-    routing::get,
-    Router,
-};
+use axum::{response::Json, routing::get, Router};
+use serde_json::{json, Value};
 use std::net::SocketAddr;
 
 #[tokio::main]
 async fn main() {
-    // run it
     let app = Router::new()
-        // `GET /` goes to `root`
-        .route("/", get(root));
+        .route("/", get(root))
+        .route("/json", get(json));
 
-    // run our app with hyper
-    // `axum::Server` is a re-export of `hyper::Server`
     let addr = SocketAddr::from(([127, 0, 0, 1], 4321));
     axum::Server::bind(&addr)
         .serve(app.into_make_service())
@@ -28,4 +23,10 @@ async fn main() {
 
 async fn root() -> &'static str {
     "Hello, World!"
+}
+
+async fn json() -> Json<Value> {
+    Json(
+        json!({ "id": 1234, "message": "I'm a JSON value", "array": ["here's", "some", "values", "in", "an", "array", "to", "make", "the", "object", "bigger"]}),
+    )
 }
